@@ -19,5 +19,4 @@ class PollAdmin(admin.ModelAdmin):
 #class TransactionAdmin(admin.ModelAdmin):
     
 admin.site.register(Poll, PollAdmin)
-admin.site.register(Transaction)
 

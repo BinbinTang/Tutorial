@@ -1,0 +1,19 @@
+<h1>ID:{{account.id}} </h1>      
+<h1> Name: {{ account.name }}</h1>
+
+
+<ul>
+{% for transaction in account.transaction_set.all %}
+    {% if transaction.amount  %}
+    <li> Top Up ${{transaction.amount }} at {{transaction.time}} </li>
+    {% else %}
+    <li> Deduct ${{transaction.amount }} at {{transaction.time}} </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+<p> <strong> End Balance: ${{account.balance}} </strong> </p> 
+
+<p> <a href="{% url 'transactions:detail' account.id %}">Transact again?</a> </p>
+
+<p> <a href="{% url 'transactions:index'%}">Home</a> </p>

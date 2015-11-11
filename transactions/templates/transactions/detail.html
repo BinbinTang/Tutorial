@@ -1,0 +1,15 @@
+<h1>{{ account.name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+Current Balance: {{account.balance}}
+
+<form action="{% url 'transactions:deal' account.id %}" method="post">
+
+{% csrf_token %}
+Transact Amount: (Positive number: Top Up Account; Negative number: Deduct from Account) <br>
+<input type="text" name="transaction_amount">
+<br>
+<input type="submit" value="submit" />
+
+</form>

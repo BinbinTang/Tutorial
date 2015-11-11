@@ -1,0 +1,11 @@
+{% if all_transaction_list %}
+    <ul>
+    {% for transaction in all_transaction_list %}
+        <li>Account: {{transaction.account}} Time: {{transaction.time}} Amount: {{transaction.amount}} End Balance: {{transaction.endBalance}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No transactions are available.</p>
+{% endif %}
+
+<a href="{% url 'transactions:index'%}">Home</a>

@@ -1,0 +1,11 @@
+{% if all_account_list %}
+    <ul>
+    {% for account in all_account_list %}
+        <li><a href="{% url 'transactions:detail' account.id %}">ID: {{ account.id }} Name: {{account.name}} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No accounts are available.</p>
+{% endif %}
+
+<a href="{% url 'transactions:flow' %}">Transaction flow</a>
