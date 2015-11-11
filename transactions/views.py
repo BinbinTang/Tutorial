@@ -31,12 +31,12 @@ class ResultsView(generic.DetailView):
     model = Account
     template_name = 'transactions/results.html'
     
-class FlowView(generic.ListView):
+class FlowView(generic.ListView ):
     template_name = 'transactions/flow.html'
     context_object_name = 'all_transaction_list'
     
     def get_queryset(self):
-        return Transaction.objects.all()
+        return Transaction.objects.all() 
     
 @transaction.non_atomic_requests
 def deal(request, account_id):

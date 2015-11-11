@@ -1,3 +1,4 @@
+<h2> Account List </h2>
 {% if all_account_list %}
     <ul>
     {% for account in all_account_list %}
@@ -8,4 +9,10 @@
     <p>No accounts are available.</p>
 {% endif %}
 
-<a href="{% url 'transactions:flow' %}">Transaction flow</a>
+<h2> Transaction FLow</h2>
+<ul>
+<!--  <li> <a href="{% url 'transactions:flow' %}">All</a> </li> -->
+<!-- <li> <a href="{% url 'transactions:flow' %}">Recent Month</a> </li> -->
+<!-- <li> <a href="{% url 'transactions:flow' %}">Recent Week</a> </li> -->
+<li> <a href="{% url 'transactions:flow' %}">Today</a> </li>
+</ul>
