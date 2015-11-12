@@ -64,20 +64,25 @@ def deal(request, account_id):
                     'account': selected_account,
                     'error_message': "Input a non-zero number",
                 })
-            if (selected_account.balance + transact_balance < 0):
-                return render(request, 'transactions/detail.html', {
-                    'account': selected_account,
-                    'error_message': "Insufficient balance",
-                })
             with transaction.atomic():
-                selected_account.balance += transact_balance
-                selected_account.save()
+                lock_account = Account.objects.select_for_update().get(pk=account_id)
+
+                if (lock_account.balance + transact_balance < 0):
+                    lock_account.balance -= transact_balance
+                    return render(request, 'transactions/detail.html', {
+                                                                        'account': lock_account,
+                                                                        'error_message': "Insufficient balance",
+                                                                        })
+                    
+                lock_account.balance += transact_balance
+                lock_account.save()
+                
                 Transaction.objects.create(
-                    account=selected_account,
-                    amount=input_amount, endBalance=selected_account.balance)
+                    account=lock_account,
+                    amount=input_amount, endBalance=lock_account.balance)
 
                 return HttpResponseRedirect(reverse(
                                             'transactions:results',
-                                            args=(selected_account.id,)))
+                                            args=(lock_account.id,)))
 
             return HttpResponse("Transaction failed!", status_code=400)
