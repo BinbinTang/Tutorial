@@ -68,7 +68,6 @@ def deal(request, account_id):
                 lock_account = Account.objects.select_for_update().get(pk=account_id)
 
                 if (lock_account.balance + transact_balance < 0):
-                    lock_account.balance -= transact_balance
                     return render(request, 'transactions/detail.html', {
                                                                         'account': lock_account,
                                                                         'error_message': "Insufficient balance",
